@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <login/>
+    <div id="nav">
+      <router-link to="/notes">note</router-link><br>
+      <router-link to="/serviceSent">service</router-link><br>
+      <router-link to="/coursAdmin">cours Admin</router-link><br>
+      <router-link to="/register">register</router-link><br>
+      <router-link to="/coursEtudiant">Cours Etudiant</router-link>
+    </div>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
-import login from './components/login.vue'
-
 export default {
-  name: 'App',
-  components: {
-    login
-  }
+  name: "app",
+
 }
 </script>
