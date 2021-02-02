@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Nav/>
         <div class="card">
             <div class="card-body">
                 <div class="mb-3">
@@ -36,7 +37,11 @@
 
 <script>
 //import axios from '../plugins/axios'
+import Nav from './nav'
 export default {
+    components:{
+        Nav,
+    },
     data() {
         return {
             nom: '',

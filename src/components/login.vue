@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div>
+        <Nav/>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label" >Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
@@ -13,7 +14,11 @@
 </template>
 
 <script>
+import Nav from './nav.vue'
 export default {
+    components : {
+        Nav,
+    },
     data() {
         return {
             email : '',

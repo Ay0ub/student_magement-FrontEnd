@@ -5,7 +5,7 @@
                 <a class="navbar-brand">Student management</a>
                 <form class="d-flex">
                     <router-link to="/login">Login</router-link>
-                    <router-link to="/register">Register<router-link>
+                    <router-link to="/register">Register</router-link>
                 </form>
             </div>
         </nav>
