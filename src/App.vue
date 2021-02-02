@@ -7,16 +7,22 @@
 <script>
 export default {
   name: "app",
+  data(){
+    return {
+      test : this.$store.state.etudiant
+    }
+  },
   components : {
 
   },
   methods : {
     redirect(){
-      this.$router.push('login')
+      this.$router.push('etudiant')
     }
   },
   mounted(){
-    this.redirect();
+    //this.redirect();
   }
 }
 </script>
+
