@@ -17,7 +17,7 @@ export default {
   },
   methods : {
     redirect(){
-      this.$router.push('etudiant')
+      this.$router.push('login')
     }
   },
   mounted(){

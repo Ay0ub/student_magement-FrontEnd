@@ -1,7 +1,6 @@
 <template>
     <div>
-        <Nave/>
-        <Home class="sidebar"/>
+        <Home/>
         <div class="content">
             <div class="container" >
                 <div class="card" style="top:20px;">
@@ -10,7 +9,8 @@
                             <div class="container-fluid">
                                 <div class="d-flex">
                                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="motCle">
-                                    <button class="btn btn-outline-success" type="submit" @click="search">Search</button>
+                                    <button class="btn btn-outline-success" @click="search">Search</button>
+                                    <button class="btn btn-outline-warning" @click="clear">Clear</button>
                                 </div>
                             </div>
                         </nav>
@@ -24,14 +24,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <div v-for="element in cours" v-bind:key="element.id">
-                                    <tr>
-                                        <td>{{element.cours}}</td>
-                                        <td>
-                                            <button style="btn btn-seccess" @click="download">Download</button>
-                                        </td>
-                                    </tr>
-                                </div>
+                                <tr v-for="element in cours" v-bind:key="element.id">
+                                    <td>{{element.nameCours}}</td>
+                                    <td>
+                                        <button class="btn btn-success" @click="download">Download</button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -43,12 +41,11 @@
 
 <script>
 import Home from './accueil'
-import Nave from '../Admin/accueil'
+import axios from 'axios'
 export default {
     name: 'cours',
     components:{
         Home,
-        Nave
     },
 
     data() {
@@ -60,14 +57,33 @@ export default {
 
     methods : {
         getCours(){
-
+            axios.get('http://localhost:8080/api/v1/student/getCourses').then((result) => {
+                console.log(result)
+                this.cours = result.data;                
+            }).catch(err => {
+                console.log(err);
+            })
         },
         download(){
 
         },
         search(){
-
+            axios.get('http://localhost:8080/api/v1/student/'+this.motCle).then(result => {
+                console.log(result.data);
+                this.cours = result.data;
+            }).catch(err => {
+                console.log(err)
+            })
         },
+        clear(){
+            this.motCle = ''
+            axios.get('http://localhost:8080/api/v1/student/getCourses').then((result) => {
+                console.log(result)
+                this.cours = result.data;                
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     },
 
     mounted() {
@@ -75,60 +91,3 @@ export default {
     }
 }
 </script>
-
-<style>
-    body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-    }
-
-    .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    }
-
-    .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-    }
-    
-    .sidebar a.active {
-    background-color: #4CAF50;
-    color: white;
-    }
-
-    .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-    }
-
-    div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-    }
-
-    @media screen and (max-width: 700px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-    }
-
-    @media screen and (max-width: 400px) {
-    .sidebar a {
-        text-align: center;
-        float: none;
-    }
-    }
-</style>

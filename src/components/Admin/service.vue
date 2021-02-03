@@ -1,33 +1,50 @@
 <template>
     <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>etudiant</th>
-                    <th>Serice</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <div v-for="element in services" v-bind:key="element.id">
-                    <tr>
-                        <td>{{element.etudiant}}</td>
-                        <td>{{element.service}}</td>
-                        <td>{{element.date}}</td>
-                        <td>
-                            <button class="btn btn-succes" @click="accept">Accepter</button>
-                            <button class="btn btn-danger" @click="refuse">Refuser</button>
-                        </td>
-                    </tr>
+        <Home/>
+        <div class="content">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>etudiant</th>
+                                    <th>Serice</th>
+                                    <th>Date</th>
+                                    <th>Etat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="element in services" v-bind:key="element.id">
+                                    <td>{{element.idService}}</td>
+                                    <td>{{element.nameService}}</td>
+                                    <td>{{element.date}}</td>
+                                    <td>
+                                        <div v-if="element.etatService == null">
+                                            <button class="btn btn-success" @click="accept(element.idService)">Accepter</button>
+                                            <button class="btn btn-danger" @click="refuse(element.idService)">Refuser</button>
+                                        </div>
+                                        <div v-else>
+                                            {{element.etatService}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import Home from '../Admin/accueil'
+import axios from 'axios'
 export default {
+    components: {
+        Home
+    },
     data(){
         return{
             services: '',
@@ -36,71 +53,34 @@ export default {
 
     methods: {
         getServices(){
-
+            axios.get('http://localhost:8080/api/v1/student/getServices').then(response => {
+                this.services = response.data
+            }).catch(err => {
+                console.log(err);
+            })
         },
-        accept(){
-
+        accept(idService){
+            axios.put("http://localhost:8080/api/v1/student/"+idService,{
+                'etat' : 'accepted'
+            }).then(() => {
+                this.getServices();
+            }).catch(err => {
+                console.log(err);
+            })
         },
-        refude(){
-
+        refude(idService){
+            axios.put("http://localhost:8080/api/v1/student/"+idService,{
+                'etat' : 'refused'
+            }).then(() => {
+                this.getServices();
+            }).catch(err => {
+                console.log(err);
+            })
         },
+    },
+    mounted() {
+        this.getServices()
     }
 }
 </script>
 
-<style>
-    body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-    }
-
-    .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    }
-
-    .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-    }
-    
-    .sidebar a.active {
-    background-color: #4CAF50;
-    color: white;
-    }
-
-    .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-    }
-
-    div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-    }
-
-    @media screen and (max-width: 700px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-    }
-
-    @media screen and (max-width: 400px) {
-    .sidebar a {
-        text-align: center;
-        float: none;
-    }
-    }
-</style>

@@ -1,31 +1,21 @@
 <template>
     <div>
-        <nav class="navbar navbar-light bg-light sticky-top fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand">Student management</a>
-                <form class="d-flex">
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                            Exemple
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-        </nav>
-        <!-- <router-link to="/coursAdmin">Cours</router-link>
-        <router-link to="/serviceAdmin">Services</router-link> -->
+        <Nav/>
+        <div class="sidebar" id="nav">
+            <router-link to="/coursAdmin">Cours</router-link>
+            <router-link to="/serviceAdmin">Services</router-link>
+        </div>
     </div>
 </template>
 
 <script>
+import Nav from '../navbar'
 export default {
+    components: {
+        Nav,
+    },
     methods:{
-        test(){
-            alert('ok')
-        }
+        
     },
 }
 </script>
