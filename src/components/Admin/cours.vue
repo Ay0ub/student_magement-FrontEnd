@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary">Enregistrer</button>
+                    <button class="btn btn-primary" @click="setCours">Enregistrer</button>
                 </div>
             </div>
 
@@ -74,7 +74,16 @@ export default {
             })
         },
         setCours(){
-
+            axios.post("http://localhost:8080/api/v1/student/addcours",{
+                'nameCours' : this.nom,
+                'docCours' : this.nom,
+                'motcleCours' : this.motCle
+            }).then(response => {
+                console.log(response);
+                this.getCours();
+            }).catch(err => {
+                console.log(err)
+            })
         },
         download(){
 

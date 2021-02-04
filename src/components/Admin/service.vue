@@ -9,23 +9,25 @@
                             <thead>
                                 <tr>
                                     <th>etudiant</th>
-                                    <th>Serice</th>
+                                    <th>Service</th>
                                     <th>Date</th>
                                     <th>Etat</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="element in services" v-bind:key="element.id">
-                                    <td>{{element.idService}}</td>
-                                    <td>{{element.nameService}}</td>
-                                    <td>{{element.date}}</td>
+                                    <td>{{element[0]}}</td>
+                                    <td>{{element[2]}}</td>
+                                    <td>{{element[3]}}</td>
                                     <td>
-                                        <div v-if="element.etatService == null">
-                                            <button class="btn btn-success" @click="accept(element.idService)">Accepter</button>
-                                            <button class="btn btn-danger" @click="refuse(element.idService)">Refuser</button>
+                                        <div v-if="element[4] == ''">
+                                            <button class="btn btn-success" @click="accept(element[1])">Accepter</button>
+                                            <button class="btn btn-danger" @click="refuse(element[1])">Refuser</button>
                                         </div>
                                         <div v-else>
-                                            {{element.etatService}}
+                                            <!-- {{element[4]}} -->
+                                            <span class="badge bg-success" v-if="element[4] == 'accepted'">{{element[4]}}</span>
+                                            <span class="badge bg-danger" v-if="element[4] == 'refused'">{{element[4]}}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -60,18 +62,14 @@ export default {
             })
         },
         accept(idService){
-            axios.put("http://localhost:8080/api/v1/student/"+idService,{
-                'etat' : 'accepted'
-            }).then(() => {
+            axios.put("http://localhost:8080/api/v1/student/updateetatservice/"+idService+"/accepted").then(() => {
                 this.getServices();
             }).catch(err => {
                 console.log(err);
             })
         },
-        refude(idService){
-            axios.put("http://localhost:8080/api/v1/student/"+idService,{
-                'etat' : 'refused'
-            }).then(() => {
+        refuse(idService){
+            axios.put("http://localhost:8080/api/v1/student/updateetatservice/"+idService+"/refused").then(() => {
                 this.getServices();
             }).catch(err => {
                 console.log(err);

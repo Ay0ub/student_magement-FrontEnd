@@ -34,7 +34,7 @@
                         </div>        
                     </div>
                     <div class="card-footer ">
-                        <button class="btn btn-primary pull-right" @click="setService">Envoyer</button>
+                        <button class="btn btn-primary pull-right" @click="setService()">Envoyer</button>
                     </div>
                 </div>
 
@@ -53,13 +53,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <div v-for="element in services" v-bind:key="element.id">
-                                    <tr>
-                                        <td>{{element.service}}</td>
-                                        <td>{{element.date}}</td>
-                                        <td>{{element.etat}}</td>
-                                    </tr>
-                                </div>
+                                <tr v-for="element in services" v-bind:key="element.id">
+                                    <td>{{element.nameService}}</td>
+                                    <td>{{element.dateService}}</td>
+                                    <td>{{element.etatService}}</td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -71,7 +69,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios';
 import Home from './accueil'
 export default {
     name: 'service',
@@ -84,22 +82,52 @@ export default {
             services: [],
             service : '',
             autre : '',
-            repense: '',
+            choice: '',
+            idUser : this.$session.get('id'),
         }
     },
 
     methods:{
         getServices(){
-            
+            axios.get('http://localhost:8080/api/v1/student/getServicebyStudent/'+this.idUser).then((result) => {
+                console.log(result);
+                this.services = result.data;
+            }).catch((err) => {
+                console.log(err)
+            });
         },
         setService()
         {
-            
+            if(this.service == 1)
+            {
+                this.choice = "Demander de l'attestation scolaire"
+            }else if(this.service == 2)
+            {
+                this.choice = "Demande des documents d'inscription"
+                
+            }else if(this.service == 3)
+            {
+                this.choice = "Demande de relevé de note"
+            }else if(this.service == "autre")
+            {
+                this.choice = this.autre
+            }
+
+            axios.post('http://localhost:8080/api/v1/student/insertService',{
+                'nameService' : this.choice,
+                'dateService' : new Date().toISOString().slice(0, 10),
+                'idUser' : this.idUser,
+            }).then((result) => {
+                console.log(result)
+                this.getServices()
+            }).catch((err) => {
+                console.log(err)
+            });
         }
     },
 
     mounted() {
-        this.getServices;
+        this.getServices();
     }
     
 }

@@ -16,6 +16,14 @@ import Nav from '../navbar'
 export default {
     components: {
         Nav,
+    },
+
+    methods: {
+        
+    },
+
+    mounted() {
+        
     }
 }
 </script>

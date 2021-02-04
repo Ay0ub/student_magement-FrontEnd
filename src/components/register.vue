@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="card-footer ">
-                    <button class="btn btn-primary ">Register</button>
+                    <button class="btn btn-primary" @click="register">Register</button>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-//import axios from '../plugins/axios'
+import axios from 'axios'
 import Nav from './navbar_login'
 export default {
     components:{
@@ -54,8 +54,24 @@ export default {
     },
 
     methods: {
-        registre(){
-            
+        register(){
+            axios.post('http://localhost:8080/api/v1/student/inscription',{
+                'nameUser' : this.nom,
+                'emailUser' : this.email,
+                'passwordUser' : this.password,
+                'typeUser' : this.type,
+            }).then((result) => {
+                if(result.status == 200)
+                {
+                    this.$session.start();
+                    this.$session.set("type",this.typeUser)
+                    this.$session.set("nom",this.nameUser)
+                    this.$session.set("id",result.data.idUser)
+                    this.$router.push(this.type)
+                }
+            }).catch((err) => {
+                console.log(err)
+            });
         },
     }
 }

@@ -13,11 +13,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <div v-for="element in absences" v-bind:key="element.id">
-                                        <td>{{element.module}}</td>
-                                        <td>{{element.pourcentage}}</td>
-                                    </div>
+                                <tr v-for="element in absences" v-bind:key="element.id">
+                                    <td>{{element[0]}}</td>
+                                    <td>{{element[1]}} %</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -30,6 +28,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Home from './accueil.vue'
 export default {
     name: "absence",
@@ -40,12 +39,19 @@ export default {
     data() {
         return{
             absences : [],
+            idUser : 1,
         }
     },
 
     methods: {
         getAbsences(){
-            
+            axios.post('http://localhost:8080/api/v1/student/prct/'+this.idUser).then((result) => {
+                console.log(result)
+                this.absences = result.data
+                console.log('ok')
+            }).catch((err) => {
+                console.log(err)
+            });
         },
     },
 
