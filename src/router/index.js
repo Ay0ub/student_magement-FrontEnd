@@ -4,20 +4,21 @@ import VueRouter from 'vue-router'
 import coursAdmin from '../components/Admin/cours.vue'
 import serviceAdmin from '../components/Admin/service.vue'
 import Admin from '../components/Admin/accueil.vue'
-import EmploisAdmin from '../components/Admin/emploiTemps.vue' 
+// import EmploisAdmin from '../components/Admin/emploiTemps.vue' 
 
 import Enseignant from '../components/Enseignant/accueil.vue'
-import EmploisEnseignant from '../components/Enseignant/emploiTemps.vue' 
+// import EmploisEnseignant from '../components/Enseignant/emploiTemps.vue' 
 
 import serviceEtudiant from '../components/Etudiant/service.vue'
 import Note from '../components/Etudiant/notes.vue'
 import coursEtudiant from '../components/Etudiant/cours.vue'
 import Absence from '../components/Etudiant/absence.vue'
 import Etudiant from '../components/Etudiant/accueil.vue'
-import EmploisEtudiant from '../components/Etudiant/emploiTemps.vue' 
+// import EmploisEtudiant from '../components/Etudiant/emploiTemps.vue' 
 
 import register from '../components/register.vue'
 import Login from '../components/login.vue'
+import emploi from '../components/emploiTemps.vue'
 
 Vue.use(VueRouter)
 
@@ -77,18 +78,22 @@ const routes = [
     name: 'enseignant',
     component: Enseignant,
   },
+  // {
+  //   path: '/emploiEtudiant',
+  //   component: EmploisEtudiant,
+  // },
+  // {
+  //   path: '/emploiEnseignant',
+  //   component: EmploisEnseignant,
+  // },
+  // {
+  //   path: '/emploiAdmin',
+  //   component: EmploisAdmin,
+  // },
   {
-    path: '/emploiEtudiant',
-    component: EmploisEtudiant,
-  },
-  {
-    path: '/emploiEnseignant',
-    component: EmploisEnseignant,
-  },
-  {
-    path: '/emploiAdmin',
-    component: EmploisAdmin,
-  },
+    path: '/emploi',
+    component : emploi
+  }
 ]
 
 const router = new VueRouter({

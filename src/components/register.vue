@@ -2,7 +2,7 @@
     <div>
         <Nav/>
         <div class="container">
-            <div class="card">
+            <div class="card" style="top: 20px">
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome :</label>
@@ -61,13 +61,14 @@ export default {
                 'passwordUser' : this.password,
                 'typeUser' : this.type,
             }).then((result) => {
-                if(result.status == 200)
+                if(result.status == 200 && result.data.idUser != null)
                 {
-                    this.$session.start();
-                    this.$session.set("type",this.typeUser)
-                    this.$session.set("nom",this.nameUser)
-                    this.$session.set("id",result.data.idUser)
-                    this.$router.push(this.type)
+                    this.$session.set('id',result.data.idUser)
+                    this.$session.set('nom',result.data.nameUser)
+                    this.$session.set('type',result.data.typeUser)
+                    this.$router.push(result.data.typeUser)
+                }else{
+                    this.error = true
                 }
             }).catch((err) => {
                 console.log(err)

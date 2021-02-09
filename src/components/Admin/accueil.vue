@@ -4,6 +4,7 @@
         <div class="sidebar" id="nav">
             <router-link to="/coursAdmin">Cours</router-link>
             <router-link to="/serviceAdmin">Services</router-link>
+            <router-link to="/emploi">Emploi de Temps</router-link>
         </div>
     </div>
 </template>

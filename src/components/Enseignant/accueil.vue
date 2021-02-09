@@ -1,13 +1,18 @@
 <template>
     <div>
-        
+        <Nav/>
+        <div id="nav" class="sidebar">
+            <router-link to="/emploi">Empois de temps</router-link>
+        </div>
     </div>
 </template>
 
 <script>
-
+import Nav from '../navbar'
 export default {
-    
+    components : {
+        Nav
+    }
 }
 </script>
 

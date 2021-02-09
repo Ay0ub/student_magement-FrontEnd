@@ -3,7 +3,7 @@
         <Home />
         <div class="content">
             <div class="container">
-                <div class="card">
+                <div class="card" style="top: 20px;">
                     <div class="card-body">
                         <table class="table">
                             <thead>

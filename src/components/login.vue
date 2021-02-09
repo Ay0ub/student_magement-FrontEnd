@@ -5,7 +5,7 @@
             email ou mot de passe incorrect
         </div>
         <div class="container">
-            <div class="card">
+            <div class="card" style="top: 20px">
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label" >Email address</label>
@@ -15,6 +15,8 @@
                         <label for="exampleInputPassword1" class="form-label" >Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" v-model="password">
                     </div>
+                </div>
+                <div class="card-footer">
                     <button type="submit" class="btn btn-primary" @click="login">Submit</button>
                 </div>
             </div>

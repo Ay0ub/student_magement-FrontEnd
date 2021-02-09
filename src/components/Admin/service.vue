@@ -20,14 +20,14 @@
                                     <td>{{element[2]}}</td>
                                     <td>{{element[3]}}</td>
                                     <td>
-                                        <div v-if="element[4] == ''">
+                                        <div v-if="element[4] == null">
                                             <button class="btn btn-success" @click="accept(element[1])">Accepter</button>
-                                            <button class="btn btn-danger" @click="refuse(element[1])">Refuser</button>
+                                            <button class="btn btn-danger" @click="refuse(element[1])" style="margin-left:20px">Refuser</button>
                                         </div>
                                         <div v-else>
                                             <!-- {{element[4]}} -->
                                             <span class="badge bg-success" v-if="element[4] == 'accepted'">{{element[4]}}</span>
-                                            <span class="badge bg-danger" v-if="element[4] == 'refused'">{{element[4]}}</span>
+                                            <span class="badge bg-danger" v-if="element[4] == 'refused'" >{{element[4]}}</span>
                                         </div>
                                     </td>
                                 </tr>

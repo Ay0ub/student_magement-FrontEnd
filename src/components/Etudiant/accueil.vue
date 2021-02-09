@@ -6,7 +6,7 @@
             <router-link to="/notes">Notes</router-link>
             <router-link to="/serviceEtudiant">Services</router-link>
             <router-link to="/absence">Absence</router-link>
-            <router-link to="/emploiEtudiant">Empois de temps</router-link>
+            <router-link to="/emploi">Empois de temps</router-link>
         </div>
     </div>
 </template>

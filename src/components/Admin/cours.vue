@@ -3,25 +3,27 @@
         <Home/>
         <div class="content">
             <div class="card" style="margin: 10px">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nome de cours :</label>
-                        <input type="text" id="nom" class="form-control" v-model="nom">
-                    </div>
+                <form @submit.prevent="setCours">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nome de cours :</label>
+                            <input type="text" id="nom" class="form-control" v-model="nom" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="cours" class="form-label">Cours :</label>
-                        <input type="file" id="cours" class="form-control">
-                    </div>
+                        <div class="mb-3">
+                            <label for="cours" class="form-label">Cours :</label>
+                            <input type="file" id="cours" class="form-control" ref="file" v-on:change="handleFileUpload()">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="motCle" class="form-label">Mot clé :</label>
-                        <input type="text" id="motCle" class="form-control" v-model="motCle">
+                        <div class="mb-3">
+                            <label for="motCle" class="form-label">Mot clé :</label>
+                            <input type="text" id="motCle" class="form-control" v-model="motCle" required>
+                        </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary" @click="setCours">Enregistrer</button>
-                </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
+                </form>
             </div>
 
             <div class="card" style="margin: 10px">
@@ -87,6 +89,9 @@ export default {
         },
         download(){
 
+        },
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0];
         }
     },
 

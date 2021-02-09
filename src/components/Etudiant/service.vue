@@ -3,7 +3,7 @@
         <Home/>
         <div class="content">
             <div class="container">
-                <div class="card">
+                <div class="card" style="top: 20px;">
                     <div class="card-header text-primary">
                         <h3>Services</h3>
                     </div>
@@ -38,9 +38,9 @@
                     </div>
                 </div>
 
-                <div class="card" style="top: 20px">
+                <div class="card" style="top: 40px">
                     <div class="card-header text-primary">
-                        <h3>Tableau des serice envoyé</h3>
+                        <h3>Tableau des services envoyés</h3>
                     </div>
                     <div class="card-body" >
 
@@ -56,11 +56,14 @@
                                 <tr v-for="element in services" v-bind:key="element.id">
                                     <td>{{element.nameService}}</td>
                                     <td>{{element.dateService}}</td>
-                                    <td>{{element.etatService}}</td>
+                                    <td>
+                                        <span class="badge bg-success" v-if="element.etatService == 'accepted'">{{element.etatService}}</span>
+                                        <span class="badge bg-danger" v-if="element.etatService == 'refused'">{{element.etatService}}</span>
+                                        <span class="badge bg-warning" v-if="element.etatService == null">en cours de traitement ...</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
