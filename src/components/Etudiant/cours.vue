@@ -27,7 +27,7 @@
                                 <tr v-for="element in cours" v-bind:key="element.id">
                                     <td>{{element.nameCours}}</td>
                                     <td>
-                                        <button class="btn btn-success" @click="download">Download</button>
+                                        <button class="btn btn-success" @click="download(element.docCours)">Download</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -64,8 +64,9 @@ export default {
                 console.log(err);
             })
         },
-        download(){
-
+        download(lien){
+            window.open('http://127.0.0.1:8887/'+lien, '_blank');
+            
         },
         search(){
             axios.get('http://localhost:8080/api/v1/student/'+this.motCle).then(result => {

@@ -12,7 +12,7 @@
 
                         <div class="mb-3">
                             <label for="cours" class="form-label">Cours :</label>
-                            <input type="file" id="cours" class="form-control" ref="file" v-on:change="handleFileUpload()">
+                            <input type="file" id="cours" class="form-control" ref="file" accept=".pdf" v-on:change="handleFileUpload()">
                         </div>
 
                         <div class="mb-3">
@@ -39,7 +39,7 @@
                             <tr v-for="element in cours" v-bind:key="element.id">
                                 <td>{{element.nameCours}}</td>
                                 <td>
-                                    <button class="btn btn-success" @click="download">Download</button>
+                                    <button class="btn btn-success" @click="download(element.docCours)">Download</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -87,11 +87,11 @@ export default {
                 console.log(err)
             })
         },
-        download(){
-
+        download(lien){
+            window.open('http://127.0.0.1:8887/'+lien, '_blank');
         },
         handleFileUpload(){
-            this.file = this.$refs.file.files[0];
+            this.pdf = this.$refs.file.files[0];
         }
     },
 
